@@ -43,3 +43,12 @@ jobs:
           context: ./client
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/employees-frontend:latest
+
+    
+      - name: Deploy to Local Deployment Environment
+        if: success()
+        run: |
+          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/employees-backend:latest
+          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/employees-frontend:latest
+          docker run -d -p 5000:5000 ${{ secrets.DOCKERHUB_USERNAME }}/employees-backend:latest
+          docker run -d -p 3000:3000 ${{ secrets.DOCKERHUB_USERNAME }}/employees-frontend:latest
