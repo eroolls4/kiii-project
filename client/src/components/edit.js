@@ -45,7 +45,7 @@ export default function Edit() {
         e.preventDefault()
 
         const editedPerson = { ...form }
-        const response = await fetch(`http://localhost:5000/update/${params.id}`, {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/update/${params.id}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

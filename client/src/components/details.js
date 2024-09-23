@@ -11,7 +11,7 @@ export default function Details() {
     useEffect(() => {
         async function fetchData() {
             const id = params.id
-            const response = await fetch(`http://localhost:5000/record/${id}`)
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/record/${id}`)
             if (!response.ok) {
                 const message = `An error occurred: ${response.statusText}`
                 window.alert(message)

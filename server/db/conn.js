@@ -1,5 +1,7 @@
 const { MongoClient } = require("mongodb")
-const Db = "mongodb://localhost:27017"
+console.log("Mongo URI:", process.env.MONGO_URI);
+
+const Db = process.env.MONGO_URI
 
 const client = new MongoClient(Db, {
     useNewUrlParser: true,
