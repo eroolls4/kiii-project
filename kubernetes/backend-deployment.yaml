@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: staff-config
+  namespace: staff
+data:
+  MONGO_URI: mongodb+srv://test:test123@staffdb.syale.mongodb.net/?retryWrites=true&w=majority&appName=staffDB
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: staff-secret
+  namespace: staff
+type: Opaque
+data:
+  MONGO_URI: mongodb+srv://test:test123@staffdb.syale.mongodb.net/?retryWrites=true&w=majority&appName=staffDB
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: staff-backend-deployment
+  namespace: staff
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: staff-project
+  template:
+    metadata:
+      labels:
+        app: staff-project
+    spec:
+      containers:
+        - name: staff-project
+          image: erollsakipi/employees-backend:latest
+          imagePullPolicy: Always
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 5000
+          envFrom:
+            - configMapRef:
+                name: staff-config
+          env:
+            - name: MONGO_URI
+              valueFrom:
+                secretKeyRef:
+                  name: staff-secret
+                  key: MONGO_URI
