@@ -13,7 +13,7 @@ metadata:
   namespace: staff
 type: Opaque
 data:
-  MONGO_URI: mongodb+srv://test:test123@staffdb.syale.mongodb.net/?retryWrites=true&w=majority&appName=staffDB
+  MONGO_URI: bW9uZ29kYitzcnY6Ly90ZXN0OnRlc3QxMjNAc3RhZmZkYi5zeWFsZS5tb25nb2RiLm5ldC8/cmV0cnlXcml0ZXM9dHJ1ZSZ3PW1ham9yaXR5JmFwcE5hbWU9c3RhZmZEQg==
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -21,7 +21,7 @@ metadata:
   name: staff-backend-deployment
   namespace: staff
 spec:
-  replicas: 5
+  replicas: 3
   selector:
     matchLabels:
       app: staff-project
@@ -34,10 +34,6 @@ spec:
         - name: staff-project
           image: erollsakipi/employees-backend:latest
           imagePullPolicy: Always
-          resources:
-            limits:
-              memory: "128Mi"
-              cpu: "500m"
           ports:
             - containerPort: 5000
           envFrom:
