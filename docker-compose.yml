@@ -18,7 +18,7 @@ services:
     ports:
       - '5000:5000' # Express app on port 5000
     environment:
-      - MONGO_URI=mongodb://mongo:27017/employees
+      - MONGO_URI=mongodb+srv://test:test123@staffdb.syale.mongodb.net/?retryWrites=true&w=majority&appName=staffDB
     depends_on:
       - mongo
     links:
